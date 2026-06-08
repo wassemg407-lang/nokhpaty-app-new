@@ -13,30 +13,27 @@ workflows:
       - name: Build web assets
         script: npm run build || true
 
-      - name: Fix permissions
-        script: chmod +x node_modules/.bin/*
+      - name: Clean iOS (safe reset)
+        script: |
+          rm -rf ios
 
       - name: Install Capacitor stable version
         script: |
           npm install @capacitor/cli@7 @capacitor/core@7 @capacitor/ios@7
 
-      - name: Sync Capacitor iOS
+      - name: Recreate iOS project properly
         script: |
+          npx cap add ios
           npx cap sync ios
 
-      - name: Debug iOS folder
+      - name: Verify Podfile
         script: |
-          ls ios/App || true
-          find ios -name "*.xcworkspace" || true
+          ls ios/App
 
       - name: Install CocoaPods
         script: |
           cd ios/App
           pod install
-
-      - name: Verify workspace exists
-        script: |
-          test -f ios/App/App.xcworkspace
 
       - name: Build iOS
         script: |
