@@ -20,20 +20,27 @@ workflows:
         script: |
           npm install @capacitor/cli@7 @capacitor/core@7 @capacitor/ios@7
 
-      - name: Generate iOS project (Capacitor sync)
+      - name: Create iOS platform (FORCE)
         script: |
-          npx cap add ios || true
+          npx cap add ios
+
+      - name: Sync Capacitor iOS
+        script: |
           npx cap sync ios
 
-      - name: Show iOS folder (debug)
+      - name: Debug iOS folder
         script: |
-          ls ios/App || true
+          ls ios/App
+          find ios -name "*.xcworkspace"
 
       - name: Install CocoaPods
         script: |
           cd ios/App
           pod install
-          ls
+
+      - name: Verify workspace exists
+        script: |
+          test -f ios/App/App.xcworkspace
 
       - name: Build iOS
         script: |
