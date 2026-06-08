@@ -16,11 +16,11 @@ workflows:
       - name: Prepare Capacitor iOS
         script: |
           npm install
-          npx cap sync ios
+          node node_modules/@capacitor/cli/bin/capacitor.js sync ios
 
       - name: Show iOS folder (debug)
         script: |
-          ls ios/App
+          ls ios/App || true
 
       - name: Install CocoaPods
         script: |
