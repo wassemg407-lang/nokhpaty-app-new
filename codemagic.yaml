@@ -1,6 +1,7 @@
 workflows:
   ios-build:
     name: iOS Build (Capacitor)
+
     environment:
       xcode: latest
       node: latest
@@ -16,7 +17,9 @@ workflows:
         script: chmod +x node_modules/.bin/*
 
       - name: Sync Capacitor
-        script: npx cap sync ios --no-build
+        script: |
+          npm install
+          npx cap sync ios
 
       - name: Install CocoaPods
         script: |
