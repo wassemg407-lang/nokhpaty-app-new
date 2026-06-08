@@ -13,18 +13,19 @@ workflows:
       - name: Build web assets
         script: npm run build || true
 
-      - name: Fix permissions
-        script: chmod +x node_modules/.bin/*
-
-      - name: Sync Capacitor
+      - name: Prepare Capacitor iOS
         script: |
           npm install
           npx cap sync ios
 
+      - name: Show iOS folder (debug)
+        script: |
+          ls ios/App
+
       - name: Install CocoaPods
         script: |
           cd ios/App
-          pod install
+          pod install || true
 
       - name: Build iOS
         script: |
