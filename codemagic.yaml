@@ -20,8 +20,9 @@ workflows:
         script: |
           npm install @capacitor/cli@7 @capacitor/core@7 @capacitor/ios@7
 
-      - name: Prepare Capacitor iOS
+      - name: Generate iOS project (Capacitor sync)
         script: |
+          npx cap add ios || true
           npx cap sync ios
 
       - name: Show iOS folder (debug)
@@ -31,7 +32,8 @@ workflows:
       - name: Install CocoaPods
         script: |
           cd ios/App
-          pod install || true
+          pod install
+          ls
 
       - name: Build iOS
         script: |
